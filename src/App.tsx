@@ -1,24 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {StateType} from './redux/store';
 
-function App() {
+interface IProps {
+  state: StateType
+}
+
+const App: React.FC<IProps> = (props:IProps) => {
+  let phrasesElem = props.state.lessons.lessons[0].phrases.map((l)=><p>{l.text}</p>)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          {props.state.lessons.lessons[0].task}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        {phrasesElem}
     </div>
   );
 }
