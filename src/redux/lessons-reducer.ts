@@ -1,3 +1,8 @@
+const SET_CURRENT_LESSON = 'SET_CURRENT_LESSON';
+//Action Creater
+export const setCurrentLesson = (id:number) => ({type:SET_CURRENT_LESSON, id})
+type ActionSetCurrentLessonType = ReturnType<typeof setCurrentLesson>
+
 type PhraseType = {text: string, isCompleted: boolean};
 
 type LessonType = {
@@ -10,7 +15,7 @@ type LessonType = {
     addition:string
 };
 
-type InitStateType = { lessons: Array<LessonType> };
+export type InitStateType = { lessons: Array<LessonType>, currentLesson: number };
 
 let initialState: InitStateType = {
     lessons:[
@@ -27,12 +32,32 @@ let initialState: InitStateType = {
             ],            
             isCompleted:false,
             addition: ""
+        },
+        {
+            id:2,
+            numbe: "1.2", 
+            name: "Времена",
+            task: "Прогнать эти фразы по таблице",
+            phrases: [
+                {text:"Они открывают", isCompleted: false},
+                {text:"Она закрвает", isCompleted: false},
+                {text:"Мы видим", isCompleted: false},
+                {text:"Он приходит", isCompleted: false}
+            ],            
+            isCompleted:false,
+            addition: ""
         }
-    ]
+    ],
+    currentLesson: 1
 };
 
-const lessonsReducer = (state = initialState, action: any) => {
+const lessonsReducer = (state = initialState, action: ActionSetCurrentLessonType) => {
     switch (action.type) {
+        case SET_CURRENT_LESSON:
+            return {
+                ...state,
+                currentLesson: action.id
+            }
         default:
             return state;
     }
